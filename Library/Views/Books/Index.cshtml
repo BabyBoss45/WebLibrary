@@ -1,0 +1,20 @@
+﻿@using Library.Services.Books.Models
+@model IEnumerable<BookModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var book in Model)
+        {
+            <tr>
+                <td>@book.Date?.ToShortDateString()</td>
+                <td>@book.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
