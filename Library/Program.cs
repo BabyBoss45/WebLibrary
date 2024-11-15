@@ -19,13 +19,13 @@ namespace Library
             builder.Services.AddScoped<IRoleStore<AppRole>, AppRoleStore>();
             builder.Services.AddScoped<IUserStore<AppUser>, AppUserStore>();
             builder.Services.AddScoped<IUserRoleStore<AppUser>, AppUserStore>();
-
+            
             builder.Services.AddDefaultIdentity<AppUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
-
+//Add configs for minimum password
                 options.Password.RequiredLength = 7;
                 options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireNonAlphanumeric = true;

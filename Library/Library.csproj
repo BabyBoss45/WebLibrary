@@ -28,6 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\TeacherPortal\" />
+    <Folder Include="Views\StudentPortal\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

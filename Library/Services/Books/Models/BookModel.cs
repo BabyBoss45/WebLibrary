@@ -10,10 +10,16 @@ namespace Library.Services.Books.Models
         [MaxLength(512)]
         public string Name { get; set; }
 
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? Date { get; set; }
+        // photo
+        public DateTime ReleaseDate { get; set; }
 
         public string Summary { get; set; }
+
+        public DateTime? Date { get; set; } // зачем?
+
+        public string Language { get; set; }
+
+        public int IdAuthor { get; set; }
+
     }
 }
