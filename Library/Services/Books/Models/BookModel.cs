@@ -3,23 +3,25 @@
 namespace Library.Services.Books.Models
 {
     public class BookModel
-    { 
+    {
         public long Id { get; set; }
 
         [Required]
         [MaxLength(512)]
+        [MinLength(2)]
+        [Display(Name="Book name")]
         public string Name { get; set; }
 
-        // photo
-        public DateTime ReleaseDate { get; set; }
+        public byte[] Photo { get; set; }
+        [Display(Name = "Release date")]
+        public DateTime DateRelease { get; set; }
 
         public string Summary { get; set; }
 
-        public DateTime? Date { get; set; } // зачем?
 
         public string Language { get; set; }
 
-        public int IdAuthor { get; set; }
+        public List<int> IdAuthors { get; set; }
 
     }
 }

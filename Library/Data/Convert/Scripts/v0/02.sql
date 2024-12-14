@@ -22,6 +22,8 @@ CREATE INDEX BooksGenres_BookId	ON BooksGenres
 CREATE INDEX BooksGenres_GenreId ON BooksGenres	
 (GenreId);
 
+-- добавить в новый запрос для запросов поиска имя дата автор жанр 
+
 ALTER TABLE BooksGenres
   ADD CONSTRAINT BooksGenres_Books_Id FOREIGN KEY (BookId) REFERENCES Books (Id)
   ON DELETE CASCADE;

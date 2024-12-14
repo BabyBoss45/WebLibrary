@@ -14,7 +14,7 @@ namespace Library.Services.Identity
         {
             _db = db;
         }
-        // надо заменить все appUsers или
+        // метод для регестрации аккаунта?
         public async Task<IdentityResult> CreateAsync(AppUser user, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();

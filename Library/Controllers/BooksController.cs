@@ -4,34 +4,59 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
+    // изменить методы 
     public class BooksController : Controller
     {
         private readonly IBooksService _books;
         public BooksController(IBooksService books)
         {
             _books = books;
-        }   
+        }
 
         public async Task<IActionResult> Index()
         {
             var list = await _books.GetBooks();
             return View(list);
         }
-
-        public IActionResult Edit()
-        { 
-            return View();
+        // создание и редакт книги 
+        public async Task<IActionResult> Edit(long id)
+        {
+            BookModel model = null;
+            if (id > 0)
+            {
+                model = await _books.GetBook(id);
+                if (model == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            else
+            {
+                model = new BookModel() { DateRelease = DateTime.Now };
+            }
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(BookModel model)
+        public async Task<IActionResult> Edit(BookModel model)
         {
-            if (!ModelState.IsValid) 
-            { 
+            if (!ModelState.IsValid)
+            {
                 return View(model);
             }
+            if (model.Id == 0)
+            {
+                await _books.CreateBook(model);
+            }
+            else
+            {
+                //update
+            }
 
-            return View();
+
+
+            return RedirectToAction(nameof(Index));
+            // return View();
         }
     }
 }

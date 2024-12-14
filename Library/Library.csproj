@@ -12,7 +12,7 @@
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.8" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Serilog" Version="4.0.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
     <PackageReference Include="Serilog.Enrichers.AspNetCore" Version="1.0.0" />
@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Views\TeacherPortal\" />
-    <Folder Include="Views\StudentPortal\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

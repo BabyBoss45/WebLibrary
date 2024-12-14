@@ -1,0 +1,26 @@
+﻿@using Library.Services.Books.Models
+@model BookModel
+
+<form asp-controller="Books" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" aria-describedby="emailHelp">
+        <span asp-validation-for="Name" class="text-danger"></span><!--прочитать про aria-->
+    </div>
+    <div class="mb-3">
+        <label asp-for="DateRelease" class="form-label"></label>
+        <input asp-for="DateRelease" class="form-control" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Summary" class="form-label"></label>
+        <textarea rows="5" asp-for="Summary" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

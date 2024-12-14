@@ -1,4 +1,4 @@
-using Library.Data;
+﻿using Library.Data;
 using Library.Services.Books;
 using Library.Services.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -79,10 +79,10 @@ namespace Library
                 await next.Invoke();
             });
 
-
+            // патерн урла
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Books}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();
