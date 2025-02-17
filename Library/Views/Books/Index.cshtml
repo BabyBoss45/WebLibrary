@@ -1,35 +1,84 @@
 ﻿@using Library.Services.Books.Models
 @model IEnumerable<BookModel>
 
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <div class="container-fluid">
 
-<div class="btn-group" role="group" aria-label="Basic example">
-    <a asp-controller="Books" asp-action="Edit" asp-route-id="0" class="btn btn-primary">Add Book</a>
-    <button type="button" class="btn btn-primary">Delete book</button>
-    <button type="button" class="btn btn-primary">Right</button>
+            <a class="nav-link" asp-controller="Account" asp-action="Profile">Profile</a>
+
+            <div class="mx-auto col-6">
+                <form class="d-flex w-100">
+                    <input class="form-control form-control-lg" type="search" placeholder="Search" aria-label="Search">
+                </form>
+            </div>
+
+            <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-2">
+            <h5>Classifications by genres</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="genre1">
+                <label class="form-check-label" for="genre1">Genre</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="genre2">
+                <label class="form-check-label" for="genre2">Genre</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="genre3">
+                <label class="form-check-label" for="genre3">Genre</label>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                @foreach (var book in Model)
+                {
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="@book.Name">
+                            <div class="card-body">
+                                <h5 class="card-title">@book.Name</h5>
+                                <p class="card-text">Published: @book.DateRelease.ToShortDateString()</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Name</th>
-            <th> </th>
+<style>
+    .navbar {
+        border-bottom: 1px solid #dee2e6;
+        padding: 1rem;
+    }
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var book in Model)
-        {
-            <tr>
-                <td>@book.DateRelease.ToShortDateString()</td>
-                <td>@book.Name</td>
-                <td>
-                    <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-primary">Edit Book</a>
+    .form-control-lg {
+        border-radius: 20px;
+        padding-left: 20px;
+    }
 
+    .card {
+        border: 1px solid #dee2e6;
+        transition: transform 0.2s;
+    }
 
-                </td>
-
-            </tr>
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-    </tbody>
-</table>
+
+    .form-check {
+        margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+    }
+</style>

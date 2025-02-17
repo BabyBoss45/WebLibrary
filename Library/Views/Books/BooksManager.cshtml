@@ -1,0 +1,95 @@
+﻿@using Library.Services.Books.Models
+@model IEnumerable<BookModel>
+
+<div class="container-fluid">
+    <img src="https://images.isbndb.com/covers/11536973482391.jpg"/>
+    <div class="row">
+        <!-- Left Sidebar Navigation -->
+        <div class="col-md-2 sidebar py-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">Returning</a>
+                <a href="#" class="list-group-item list-group-item-action">Borrowers</a>
+                <a href="#" class="list-group-item list-group-item-action active">Books manager</a>
+                <a href="#" class="list-group-item list-group-item-action">Teacher service</a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="col-md-8 main-content p-4">
+            <!-- Add Book Section -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Add book from ISBN</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Enter name or ISBN code">
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-primary">Add</button>
+                        <button class="btn btn-secondary">add manually</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side Panel -->
+        <div class="col-md-2">
+            <div class="d-flex justify-content-end p-3">
+                <a href="#" class="btn btn-outline-danger">Logout</a>
+            </div>
+
+            <!-- Delete Book Form -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6>Delete Book from library</h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label>Inventory number of Book</label>
+                        <input type="text" class="form-control mb-2">
+                    </div>
+                    <div class="mb-3">
+                        <label>Reason</label>
+                        <input type="text" class="form-control mb-2">
+                    </div>
+                    <button class="btn btn-danger w-100">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .sidebar {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        border-right: 1px solid #dee2e6;
+    }
+
+        .sidebar .list-group-item.active {
+            background-color: #198754;
+            border-color: #198754;
+        }
+
+    .main-content {
+        background-color: #fff;
+    }
+
+    .card {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+        background-color: #f8f9fa;
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+    }
+
+    .form-control {
+        border-radius: 4px;
+    }
+</style>

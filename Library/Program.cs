@@ -32,6 +32,7 @@ namespace Library
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
                 options.Password.RequireDigit = true;
+                
             })
             .AddRoles<AppRole>()
             .AddDefaultTokenProviders();
@@ -80,10 +81,11 @@ namespace Library
             });
 
             // патерн урла
+            
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Books}/{action=Index}/{id?}");
-            app.MapRazorPages();
+                pattern: "{controller=Books}/{action=BooksManager}/{id?}");
+            app.MapRazorPages(); 
 
             app.Run();
         }

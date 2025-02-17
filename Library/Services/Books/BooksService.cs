@@ -6,7 +6,6 @@ using System.Threading;
 using System.Text;
 using Newtonsoft.Json;
 
-// написать методы к таблицам удаление и добавление 
 namespace Library.Services.Books
 {
     public class BooksService : IBooksService
@@ -38,7 +37,6 @@ namespace Library.Services.Books
 
             return Enumerable.Empty<BookModel>();
         }
-        // добавить вставление в книгу жанров
         /// <summary>
         /// описать метод
         /// </summary>
@@ -62,7 +60,7 @@ namespace Library.Services.Books
 
                             await con.ExecuteAsync($@"INSERT INTO BOOK (NAME, DATERELEASE, SUMMARY, LANGUAGE)
                     VALUES ({_db.Param(nameof(book.Name))}, {_db.Param(nameof(book.DateRelease))}, {_db.Param(nameof(book.Summary))}, {_db.Param(nameof(book.Language))})
-                    {_db.Returning(nameof(book.Id))}", param, transaction: trn);// добавить ко всем ид в запросах ниже
+                    {_db.Returning(nameof(book.Id))}", param, transaction: trn);
 
                             book.Id = param.Get<long>(nameof(book.Id));
 

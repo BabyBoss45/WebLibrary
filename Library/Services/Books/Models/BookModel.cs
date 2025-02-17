@@ -23,5 +23,12 @@ namespace Library.Services.Books.Models
 
         public List<int> IdAuthors { get; set; }
 
+        public BookModel() { }
+        public BookModel(IsbndbBookModel isnb)
+        { // ко всем нужным переменым из апи
+            Id = isnb.Id;
+        }
+
     }
+    
 }

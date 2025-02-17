@@ -14,4 +14,3 @@ namespace Library.Services.Books
         Task BookStatus(StatusModel status);
     }
 }
-// 

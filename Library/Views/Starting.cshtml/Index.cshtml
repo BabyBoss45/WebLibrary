@@ -1,12 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-    ViewData["Title"] = "Home Page";
 }
-
-
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,12 +14,10 @@
             text-align: center;
             margin: 50px;
         }
-
         .container {
             max-width: 400px;
             margin: auto;
         }
-
         button {
             display: block;
             width: 100%;
@@ -34,12 +29,15 @@
     </style>
 </head>
 <body>
-    <form asp-controller="StudentPortal" asp-action="Account" method="get">
-        <button type="submit" class="btn btn-primary">Student Portal</button>
-    </form>
-    <a asp-controller="StudentPortal" asp-action="Account" class="btn btn-primary">Student Portal</a>
-    <div>
-        @Html.ActionLink("Student Portal", "Account", "StudentPortal", null, new { @class = "btn btn-primary" })
+
+    <div class="container">
+        <div class="text-center">
+            <h1 class="display-4">Welcome!</h1>
+            <p>Choose your portal:</p>
+            <a asp-controller="StudentPortal" asp-action="MainPage" class="btn btn-primary btn-lg">Student Portal</a>
+            <a asp-controller="TeacherPortal" asp-action="MainPage" class="btn btn-secondary btn-lg">Teacher Portal</a>
+        </div>
     </div>
+
 </body>
 </html>
