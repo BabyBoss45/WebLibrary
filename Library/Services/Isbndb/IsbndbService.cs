@@ -12,7 +12,6 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Library.Services.Isbndb
 {
-
     public class IsbndbService
     {
         private readonly ILogger<IsbndbService> _logger;
@@ -40,9 +39,9 @@ namespace Library.Services.Isbndb
                     {
                         // Read and display the response content
                         string jsonString = await response.Content.ReadAsStringAsync();
-                        IsbndbBookModel bookModel = JsonSerializer.Deserialize<IsbndbBookModel>(jsonString);
+                        IsbndbBookContainerModel bookModel = JsonSerializer.Deserialize<IsbndbBookContainerModel>(jsonString);
 
-                        //return new BookModel(bookModel.book) //как в тест проге 
+                        return new BookModel(bookModel.book);
 
                     }
                     else
@@ -51,6 +50,7 @@ namespace Library.Services.Isbndb
                         string errorResponse = await response.Content.ReadAsStringAsync();
                         _logger.LogDebug($"Error: {response.StatusCode}");
                         _logger.LogDebug($"Details: {errorResponse}");
+                        return null;
                     }
                 }
             }

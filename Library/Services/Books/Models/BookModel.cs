@@ -13,6 +13,7 @@ namespace Library.Services.Books.Models
         public string Name { get; set; }
 
         public byte[] Photo { get; set; }
+        public string PhotoLink{ get; set; }
         [Display(Name = "Release date")]
         public DateTime DateRelease { get; set; }
 
@@ -20,13 +21,19 @@ namespace Library.Services.Books.Models
 
 
         public string Language { get; set; }
-
+        
+        public string LibraryName{ get; set; }
         public List<int> IdAuthors { get; set; }
 
         public BookModel() { }
         public BookModel(IsbndbBookModel isnb)
-        { // ко всем нужным переменым из апи
+        { 
             Id = isnb.Id;
+            Name = isnb.TitleLong;
+            PhotoLink = isnb.Image;
+            DateRelease = isnb.DatePublished;
+            Summary = isnb.Synopsis;
+            Language = isnb.Language;
         }
 
     }

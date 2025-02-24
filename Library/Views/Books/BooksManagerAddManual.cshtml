@@ -1,0 +1,59 @@
+﻿@using Library.Services.Books.Models
+@model BookContainerModel
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Left Navigation -->
+            <div class="list-group">
+                @Html.ActionLink("Returning", "Index", "Returning", null, new { @class = "list-group-item" })
+                @Html.ActionLink("Borrowers", "Index", "Borrowers", null, new { @class = "list-group-item" })
+                @Html.ActionLink("Books manager", "Index", "Books", null, new { @class = "list-group-item active" })
+                @Html.ActionLink("Teacher service", "Index", "Teacher", null, new { @class = "list-group-item" })
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            @using (Html.BeginForm("AddBook", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.book.Name, "Name")
+                    @Html.TextBoxFor(m => m.book.Name, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.authors.Name, "Author")
+                    @Html.TextBoxFor(m => m.authors.Name, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.book.DateRelease, "Date")
+                    @Html.TextBoxFor(m => m.book.DateRelease, new { @class = "form-control", type = "date" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.genre.Name, "Genres")
+                    @Html.TextBoxFor(m => m.genre.Name, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.book.LibraryName, "Library name")
+                    @Html.TextBoxFor(m => m.book.LibraryName, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.book.Summary, "Summary")
+                    @Html.TextAreaFor(m => m.book.Summary, new { @class = "form-control", rows = "4" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.book.Photo, "Upload photo")
+                    <input type="file" name="Photo" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add</button>
+            }
+        </div>
+    </div>
+</div>

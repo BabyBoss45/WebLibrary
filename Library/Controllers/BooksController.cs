@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Library.Controllers
 {
     // изменить методы 
-    [Authorize]
+    //[Authorize]
     public class BooksController : Controller
     {
         private readonly IBooksService _books;
@@ -61,6 +61,10 @@ namespace Library.Controllers
             // return View();
         }
         public async Task<IActionResult> BooksManager()
+        {
+            return View();
+        }
+        public async Task<IActionResult> BooksManagerAddManual()
         {
             return View();
         }
