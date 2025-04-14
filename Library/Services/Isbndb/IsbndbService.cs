@@ -7,12 +7,11 @@ using System.Text;
 using Library.Services.Books;
 using Library.Services.Books.Models;
 using Newtonsoft.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
-
+using System.Reflection;
 
 namespace Library.Services.Isbndb
 {
-    public class IsbndbService
+    public class IsbndbService : IIsbndbService
     {
         private readonly ILogger<IsbndbService> _logger;
         private readonly IDb _db;
@@ -21,33 +20,37 @@ namespace Library.Services.Isbndb
             _logger = logger;
             _db = db;
         }
+        //getting the book by isbn from api and returning the BookModel
         public async Task<BookModel> GetBook(string isbn)
         {
+            //mykey to the api
             const string ApiKey = "54525_f998566a066fc1456965169e594256ef";
+            //url of api
             const string BaseUrl = "https://api2.isbndb.com";
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(BaseUrl);
+                    // connceting to the api
                     client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", ApiKey);
-
+                    //the request form
                     string endpoint = $"/book/{isbn}";
+                    //request to the api
                     HttpResponseMessage response = await client.GetAsync(endpoint);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Read and display the response content
+                        // Read and display thesS response content
                         string jsonString = await response.Content.ReadAsStringAsync();
-                        IsbndbBookContainerModel bookModel = JsonSerializer.Deserialize<IsbndbBookContainerModel>(jsonString);
-
-                        return new BookModel(bookModel.book);
-
+                        IsbndbBookContainerModel Model = JsonConvert.DeserializeObject<IsbndbBookContainerModel>(jsonString);
+                        return new BookModel(Model.book);
                     }
                     else
                     {
                         // Handle errors (e.g., invalid ISBN, unauthorized)
                         string errorResponse = await response.Content.ReadAsStringAsync();
+                        //loging errore
                         _logger.LogDebug($"Error: {response.StatusCode}");
                         _logger.LogDebug($"Details: {errorResponse}");
                         return null;
@@ -55,11 +58,12 @@ namespace Library.Services.Isbndb
                 }
             }
             catch (Exception ex)
-            {
+            {    //loging errore
                 _logger.LogDebug($"An error occurred: {ex.Message}");
             }
             return null;
         }
+
 
         public async Task GetAuthor(IsbndbBookModel bookModel, AuthorsModel authors)
         {
@@ -80,7 +84,7 @@ namespace Library.Services.Isbndb
                         authors.Id = param.Get<int>(nameof(authors.Id));
 
                         _logger.LogDebug("Add author {Id}", authors.Id);
-                    } 
+                    }
                 }
                 catch (Exception ex)
                 {

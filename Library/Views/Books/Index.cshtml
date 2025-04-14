@@ -1,22 +1,16 @@
 ﻿@using Library.Services.Books.Models
 @model IEnumerable<BookModel>
-
 <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <div class="container-fluid">
-
             <a class="nav-link" asp-controller="Account" asp-action="Profile">Profile</a>
-
             <div class="mx-auto col-6">
                 <form class="d-flex w-100">
                     <input class="form-control form-control-lg" type="search" placeholder="Search" aria-label="Search">
                 </form>
             </div>
-
-            <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
         </div>
     </nav>
-
     <div class="row">
         <div class="col-md-2">
             <h5>Classifications by genres</h5>
@@ -33,26 +27,45 @@
                 <label class="form-check-label" for="genre3">Genre</label>
             </div>
         </div>
-
         <div class="col-md-10">
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 @foreach (var book in Model)
+
                 {
                     <div class="col">
-                        <div class="card h-100">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="@book.Name">
-                            <div class="card-body">
-                                <h5 class="card-title">@book.Name</h5>
-                                <p class="card-text">Published: @book.DateRelease.ToShortDateString()</p>
+                            <a asp-controller="Books" asp-action="BookInfo" asp-route-id="@book.Id" class="book-link">
+                            <div class="card h-100">
+                                <div class="book-image-container">
+                                    @if (!string.IsNullOrEmpty(book.PhotoLink))
+
+                                    {
+                                        <img src="@book.PhotoLink" class="card-img-top book-cover" alt="@book.Name" onerror="this.onerror=null;this.src='https://via.placeholder.com/200x300';">
+                                    }
+
+                                    else if (book.Photo != null && book.Photo.Length > 0)
+
+                                    {
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(book.Photo)" class="card-img-top book-cover" alt="@book.Name">
+                                    }
+
+                                    else
+
+                                    {
+                                        <img src="https://via.placeholder.com/200x300" class="card-img-top book-cover" alt="@book.Name">
+                                    }
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@book.Name</h5>
+                                    <p class="card-text">Published: @book.DateRelease.ToShortDateString()</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 }
             </div>
         </div>
     </div>
 </div>
-
 <style>
     .navbar {
         border-bottom: 1px solid #dee2e6;
@@ -67,6 +80,7 @@
     .card {
         border: 1px solid #dee2e6;
         transition: transform 0.2s;
+        height: 100%;
     }
 
         .card:hover {
@@ -81,4 +95,29 @@
     .nav-link {
         font-size: 1.1rem;
     }
+
+    .book-image-container {
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background-color: #f8f9fa;
+    }
+
+    .book-cover {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .book-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+        .book-link:hover {
+            text-decoration: none;
+            color: inherit;
+        }
 </style>

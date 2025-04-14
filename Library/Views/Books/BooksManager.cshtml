@@ -1,131 +1,92 @@
 ﻿@using Library.Services.Books.Models
 @model IEnumerable<BookModel>
+
 <div class="container-fluid">
     <div class="row">
-        <!-- Left Sidebar Navigation -->
-        <div class="col-md-2 sidebar py-3">
+        <!-- Left Sidebar Navigation (Choices Stay Here) -->
+        <div class="col-md-2 sidebar py-4">
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action">Returning</a>
                 <a href="#" class="list-group-item list-group-item-action">Borrowers</a>
-                <a href="#" class="list-group-item list-group-item-action active">Books manager</a>
-                <a href="#" class="list-group-item list-group-item-action">Teacher service</a>
+                <a href="#" class="list-group-item list-group-item-action active">Books Manager</a>
+                <a href="#" class="list-group-item list-group-item-action">Teacher Service</a>
             </div>
         </div>
+
         <!-- Main Content Area -->
-        <div class="col-md-8 main-content p-4">
-            <!-- Add Book Section -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5>Add book from ISBN</h5>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Enter name or ISBN code">
-                    </div>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-primary">Add</button>
-                        <a class="btn btn-primary  " asp-area="" asp-controller="Books" asp-action="BooksManagerAddManual">Add Manual</a>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Book List Section -->
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Books List</h5>
-                    <div class="d-flex align-items-center gap-2">
-                        <select class="form-select form-select-sm" style="width: auto;">
-                            <option>10</option>
-                            <option>25</option>
-                            <option>25</option>
-                            <option>50</option>
-                            <option>100</option>
-                        </select>
-                        <input type="search" class="form-control form-control-sm" placeholder="Search..." style="width: 200px;">
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Date Release</th>
-                                    <th>Language</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var book in Model ?? Enumerable.Empty<BookModel>())
-                                {
-                                    <tr>
-                                        <td>@book.Name</td>
-                                        <td>@book.DateRelease.ToString("yyyy-MM-dd")</td>
-                                        <td>@book.Language</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">Edit</button>
-                                            <button class="btn btn-sm btn-outline-danger">Delete</button>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Pagination -->
-                    <div class="d-flex justify-content-between align-items-center mt-3">
-                        <div class="text-muted">
-                            Showing <span>1</span> to <span>10</span> of <span>100</span> entries
+        <div class="col-md-10">
+            <div class="row">
+                <!-- Add Book Section -->
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5>Add Book from ISBN</h5>
                         </div>
-                        <nav>
-                            <ul class="pagination pagination-sm mb-0">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#">Previous</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <div class="card-body">
+                            @using (Html.BeginForm("GetBook", "Isbndb", FormMethod.Post))
+                            {
+
+                                <div class="mb-3">
+                                    <label class="form-label">Enter the Library Name</label>
+                                    @Html.TextBox("LibraryName", null, new { @class = "form-control form-control-lg", placeholder = "Enter Library Name" })
+                                </div> 
+ 
+                                <!-- ISBN Input Field -->
+                                <div class="mb-3">
+                                    <label class="form-label">ISBN</label>
+                                    @Html.TextBox("isbn", null, new { @class = "form-control form-control-lg", placeholder = "Enter ISBN" })
+                                </div>
+                                @if (TempData["SuccessMessage"] != null)
+                                {
+                                    <div class="alert alert-success">
+                                        @TempData["SuccessMessage"]
+                                    </div>
+                                }
+                                @if (TempData["UnsuccessMessage"] != null)
+                                {
+                                    <div class="alert alert-danger">
+                                        @TempData["UnsuccessMessage"]
+                                    </div>
+                                }
+
+                                <!-- Buttons -->
+                                <div class="d-flex gap-2">
+                                    <input type="submit" value="Add" class="btn btn-primary px-4" />
+                                    @Html.ActionLink("Add Manually", "BooksManagerAddManual", "Books", null, new { @class = "btn btn-secondary px-4" })
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Book Section -->
+                <div class="col-md-6">
+                    <div class="card mb-4 border border-danger">
+                        <div class="card-header bg-danger text-white">
+                            <h6>Delete Book from Library</h6>
+                        </div>
+                        <div class="card-body">
+                            @using (Html.BeginForm("DeleteBook", "Books", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="mb-3">
+                                    <label class="form-label">Inventory Number of Book</label>
+                                    <input type="text" name="InventoryNumber" id="InventoryNumber" class="form-control form-control-lg" required placeholder="Enter inventory number">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Reason</label>
+                                    <input type="text" name="Reason" id="Reason" class="form-control form-control-lg" required placeholder="Enter reason">
+                                </div>
+                                <button type="submit" class="btn btn-danger w-100 py-2">Delete</button>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Right Side Panel -->
-        <div class="col-md-2">
-            <div class="d-flex justify-content-end p-3">
-                <a href="#" class="btn btn-outline-danger">Logout</a>
-            </div>
-            <!-- Delete Book Form -->
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h6>Delete Book from library</h6>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label>Inventory number of Book</label>
-                        <input type="text" class="form-control mb-2">
-                    </div>
-                    <div class="mb-3">
-                        <label>Reason</label>
-                        <input type="text" class="form-control mb-2">
-                    </div>
-                    <button class="btn btn-danger w-100">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    </div> <!-- Close row -->
+</div> <!-- Close container-fluid -->
+
 <style>
     .sidebar {
         background-color: #f8f9fa;
@@ -133,13 +94,32 @@
         border-right: 1px solid #dee2e6;
     }
 
-        .sidebar .list-group-item.active {
-            background-color: #198754;
-            border-color: #198754;
+        .sidebar .list-group-item {
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1rem;
         }
 
-    .main-content {
-        background-color: #fff;
+            .sidebar .list-group-item.active {
+                background-color: #198754;
+                border-color: #198754;
+                color: white;
+            }
+
+    .btn-primary {
+        background-color: #0d6efd;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+
+    .btn-success {
+        background-color: #198754;
+    }
+
+    .form-control {
+        border-radius: 5px;
     }
 
     .card {
@@ -148,23 +128,6 @@
     }
 
     .card-header {
-        background-color: #f8f9fa;
-    }
-
-    .btn-primary {
-        background-color: #0d6efd;
-    }
-
-    .form-control {
-        border-radius: 4px;
-    }
-
-    .pagination .page-link {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.875rem;
-    }
-
-    .table td {
-        vertical-align: middle;
+        font-weight: bold;
     }
 </style>

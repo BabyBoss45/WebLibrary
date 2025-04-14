@@ -2,10 +2,10 @@
 {
     public class InventoryModel
     {
-        public int Id { get; set; }
-        public string IdBook { get; set; }
-        public string NameLibrary { get; set; }
-        public string LybraryRoom { get; set; }
+        public long Id { get; set; }
+        public long IdBook { get; set; }
+        public string LibraryName { get; set; }
+        //public string LybraryRoom { get; set; }
 
     }
 }

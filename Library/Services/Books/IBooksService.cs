@@ -5,10 +5,10 @@ namespace Library.Services.Books
     {
         Task<IEnumerable<BookModel>> GetBooks();
         Task CreateBook(BookModel book);
-        Task DeleteBook(BookModel book);
+        Task DeleteBook(BookModel book, string reason);
         Task<BookModel> GetBook(long id);
         Task AddAuthor(AuthorsModel author);
-        Task AddInventory(InventoryModel inventory);
+       // Task AddInventory(InventoryModel inventory);
         Task AddGenre(GenreModel genre);
         Task AddGenreToBook(GenresBookModel genresBook);
         Task BookStatus(StatusModel status);

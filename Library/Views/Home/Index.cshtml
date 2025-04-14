@@ -5,41 +5,68 @@
     ViewData["Title"] = "Home Page";
 }
 
-
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wellcome to Library</title>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        .page-title {
             text-align: center;
-            margin: 50px;
+            margin-top: 20px;
         }
 
-        .container {
-            max-width: 400px;
-            margin: auto;
+        .portal-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 60px;
         }
 
-        button {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 18px;
+        .portal-box {
+            width: 200px;
+            height: 200px;
+            border: 3px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-align: center;
             cursor: pointer;
+        }
+
+        .student-box {
+            border-color: blue;
+        }
+
+        .teacher-box {
+            border-color: red;
+        }
+
+        /* Optional hover effect */
+        .portal-box:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <form asp-controller="StudentPortal" asp-action="Account" method="get">
-        <button type="submit" class="btn btn-primary">Student Portal</button>
-    </form>
-    <a asp-controller="StudentPortal" asp-action="Account" class="btn btn-primary">Student Portal</a>
-    <div>
-        @Html.ActionLink("Student Portal", "Account", "StudentPortal", null, new { @class = "btn btn-primary" })
+    <h1 class="page-title">Welcome Page</h1>
+    <h2 class="page-title">Queen Ethelburga's College Web Library</h2>
+
+    <div class="portal-container">
+        <!-- Student Portal Box -->
+        <div class="portal-box student-box">
+            <!-- Use asp-controller/asp-action if you have a matching controller/action -->
+            <a asp-controller="StudentPortal" asp-action="Index" style="text-decoration:none; color:inherit;">
+                Student Portal
+            </a>
+        </div>
+
+        <!-- Teacher Portal Box -->
+        <div class="portal-box teacher-box">
+            <!-- Use asp-controller/asp-action if you have a matching controller/action -->
+            <a asp-controller="TeacherPortal" asp-action="Index" style="text-decoration:none; color:inherit;">
+                Teacher Portal
+            </a>
+        </div>
     </div>
 </body>
 </html>

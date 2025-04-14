@@ -1,10 +1,17 @@
-﻿namespace Library.Services.Books.Models
+﻿using Library.Services.Isbndb.Models;
+using System.Web;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Library.Services.Books.Models
 {
     public class BookContainerModel
     {
-        public BookModel book { get; set; }
-        //Должны быть листы но для костыля будут пока по одному
-        public AuthorsModel authors { get; set; }
-        public GenreModel genre { get; set; }
+        public BookModel book {  get; set; }
+        public string  authors { get; set; }
+        public string genres { get; set; }
+
+        public IFormFile PhotoUpload { get; set; }
+        public BookContainerModel() { }
+
     }
 }

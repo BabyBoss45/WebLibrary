@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 public class IsbndbBookModel
@@ -12,6 +13,7 @@ public class IsbndbBookModel
     public string Binding { get; set; }
     public string Publisher { get; set; }
     public string Language { get; set; }
+    [JsonProperty("date_published")]
     public DateTime DatePublished { get; set; } // ISO 8601 date format
     public string Edition { get; set; }
     public int Pages { get; set; }

@@ -3,6 +3,7 @@
     public class IsbndbBookContainerModel
     {
         public IsbndbBookModel book { get; set; }
+        public IsbndbAuthor author { get; set; }
 
     }
 }

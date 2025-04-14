@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-md-9">
-            @using (Html.BeginForm("AddBook", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("BooksManagerAddManual", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="form-group">
                     @Html.LabelFor(m => m.book.Name, "Name")
@@ -23,8 +23,8 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(m => m.authors.Name, "Author")
-                    @Html.TextBoxFor(m => m.authors.Name, new { @class = "form-control" })
+                    @Html.LabelFor(m => m.authors, "Author")
+                    @Html.TextBoxFor(m => m.authors, new { @class = "form-control" })
                 </div>
 
                 <div class="form-group">
@@ -33,13 +33,17 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(m => m.genre.Name, "Genres")
-                    @Html.TextBoxFor(m => m.genre.Name, new { @class = "form-control" })
+                    @Html.LabelFor(m => m.genres, "Genres")
+                    @Html.TextBoxFor(m => m.genres, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.book.Language, "Language")
+                    @Html.TextBoxFor(m => m.book.Language, new { @class = "form-control" })
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(m => m.book.LibraryName, "Library name")
-                    @Html.TextBoxFor(m => m.book.LibraryName, new { @class = "form-control" })
+                    @Html.LabelFor(m => m.book.LibName, "Library Name")
+                    @Html.TextBoxFor(m => m.book.LibName, new { @class = "form-control" })
                 </div>
 
                 <div class="form-group">
@@ -48,10 +52,21 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(m => m.book.Photo, "Upload photo")
-                    <input type="file" name="Photo" class="form-control" />
+                    @Html.LabelFor(m => m.PhotoUpload, "Upload photo")
+                    @Html.TextBoxFor(m => m.PhotoUpload, new { type = "file", @class = "form-control" })
                 </div>
-
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+                @if (TempData["UnsuccessMessage"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["UnsuccessMessage"]
+                    </div>
+                }
                 <button type="submit" class="btn btn-primary">Add</button>
             }
         </div>

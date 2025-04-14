@@ -1,6 +1,7 @@
 ﻿using Library.Data;
 using Library.Services.Books;
 using Library.Services.Identity;
+using Library.Services.Isbndb;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
 using Serilog.Context;
@@ -17,8 +18,9 @@ namespace Library
             builder.Services.AddDb();
 
             builder.Services.AddScoped<IRoleStore<AppRole>, AppRoleStore>();
-            builder.Services.AddScoped<IUserStore<AppUser>, AppUserStore>();
-            builder.Services.AddScoped<IUserRoleStore<AppUser>, AppUserStore>();
+
+           builder.Services.AddScoped<IUserStore<AppUser>, AppUserStore>();
+           builder.Services.AddScoped<IUserRoleStore<AppUser>, AppUserStore>();
             
             builder.Services.AddDefaultIdentity<AppUser>(options =>
             {
@@ -46,6 +48,7 @@ namespace Library
                 configuration.ReadFrom.Configuration(context.Configuration));
 
             builder.Services.AddSingleton<IBooksService, BooksService>();
+            builder.Services.AddSingleton<IIsbndbService, IsbndbService>();
 
             var app = builder.Build();
 
@@ -63,6 +66,7 @@ namespace Library
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
 
             app.UseRouting();
 

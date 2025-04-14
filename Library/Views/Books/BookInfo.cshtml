@@ -1,0 +1,160 @@
+﻿@using Library.Services.Books.Models
+@model BookContainerModel
+
+<div class="container my-4">
+    <!-- Row: Book Image (Left) and Book Info (Right) -->
+    <div class="row g-3">
+
+        <!-- Book Image Section -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+             @if (!string.IsNullOrEmpty(Model.book.PhotoLink))
+             {
+    <img src="@Model.book.PhotoLink" alt="Photo of book"
+         class="card-img-top img-fluid"
+         style="object-fit: cover; height: 400px; width: 100%;" />
+             }
+             else if (Model.book.Photo != null && Model.book.Photo.Length > 0)
+             {
+    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.book.Photo)" 
+         class="card-img-top book-cover" 
+         alt="@Model.book.Name" />
+             }
+             else
+             {
+         <div class="d-flex justify-content-center align-items-center"
+         style="height: 400px; background-color: #ececec;">
+        <span class="text-muted">Photo of book</span>
+          </div>
+             }
+            </div>
+        </div>
+
+        <!-- Book Information Section -->
+        <div class="col-md-8">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <!-- Book Title -->
+                    <h3 class="card-title mb-3">@Model.book.Name</h3>
+
+                    <!-- Authors -->
+                    @if (!string.IsNullOrWhiteSpace(Model.authors))
+                    {
+                        <p class="card-text mb-2">
+                            <strong>Authors:</strong> @Model.authors
+                        </p>
+                    }
+
+                    <!-- Genres -->
+                    @if (!string.IsNullOrWhiteSpace(Model.genres))
+                    {
+                        <p class="card-text mb-2">
+                            <strong>Genres:</strong> @Model.genres
+                        </p>
+                    }
+
+                    <!-- Language -->
+                    @if (!string.IsNullOrWhiteSpace(Model.book.Language))
+                    {
+                        <p class="card-text mb-2">
+                            <strong>Language:</strong> @Model.book.Language
+                        </p>
+                    }
+
+                    <!-- Library Name -->
+                    @if (!string.IsNullOrWhiteSpace(Model.book.LibName))
+                    {
+                        <p class="card-text mb-2">
+                            <strong>Library Name:</strong> @Model.book.LibName
+                        </p>
+                    }
+
+                    <!-- Published Date -->
+                    @if (Model.book.DateRelease != null)
+                    {
+                        <p class="card-text mb-2">
+                            <strong>Published Date:</strong> @Model.book.DateRelease.ToString("MMMM dd, yyyy")
+                        </p>
+                    }
+
+                    <!-- Book Summary (fully displayed) -->
+                    @if (!string.IsNullOrWhiteSpace(Model.book.Summary))
+                    {
+                        <div class="card-text">
+                            @Html.Raw(Model.book.Summary)
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Row: Borrow Form (Bottom) -->
+    <div class="row g-3 mt-3">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <!-- Borrow Form -->
+                    <form asp-controller="Books" asp-action="Borrow" method="post">
+                        <input type="hidden" name="BookId" value="@Model.book.Id" />
+
+                        <div class="row g-3">
+                            <!-- Start Date -->
+                            <div class="col-sm-6 col-md-3">
+                                <label for="StartDate" class="form-label">Start Date</label>
+                                <input type="date" id="StartDate" name="StartDate" class="form-control"
+                                       value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                            </div>
+
+                            <!-- End Date -->
+                            <div class="col-sm-6 col-md-3">
+                                <label for="EndDate" class="form-label">End Date</label>
+                                <input type="date" id="EndDate" name="EndDate" class="form-control"
+                                       value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")" />
+                            </div>
+
+                            <!-- Borrow Button -->
+                            <div class="col-md-6 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    Borrow
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Back Button -->
+                    <div class="mt-3">
+                        <a href="javascript:history.back()" class="btn btn-secondary w-100">
+                            Back
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Set minimum end date to be at least the start date
+            $('#StartDate').change(function () {
+                var startDate = $(this).val();
+                $('#EndDate').attr('min', startDate);
+
+                // If the current end date is before the new start date, update it
+                var endDate = $('#EndDate').val();
+                if (endDate < startDate) {
+                    $('#EndDate').val(startDate);
+                }
+            });
+
+            // Initialize with today's date
+            $('#StartDate').trigger('change');
+        });
+    </script>
+}
+

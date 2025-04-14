@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿/*
+using System.Data;
 using Dapper;
 using Library.Data;
 using Microsoft.AspNetCore.Identity;
@@ -382,14 +383,9 @@ namespace Library.Services.Identity
         public Task<string> GetAuthenticatorKeyAsync(AppUser user, CancellationToken cancellationToken)
             => GetTokenAsync(user, InternalLoginProvider, AuthenticatorKeyTokenName, cancellationToken);
 
-        private async Task<string> GetTokenAsync(AppUser user, string internalLoginProvider, string authenticatorKeyTokenName, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Dispose()
         {
             // Nothing to dispose.
         }
     }
-}
+} */
